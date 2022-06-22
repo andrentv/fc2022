@@ -3,10 +3,11 @@ package kafka
 import (
 	"os"
 	"fmt"
+	"log"
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
 )
 
-type kafkaConsumer struct {
+type KafkaConsumer struct {
 	MsgChan chan *ckafka.Message
 }
 
@@ -16,8 +17,8 @@ func NewKafkaConsumer(msgChan chan *ckafka.Message) *KafkaConsumer {
 	}
 }
 
-func(k *kafkaConsumer) Consume() {
-	configmap := &ckafka.ConfigMap{
+func(k *KafkaConsumer) Consume() {
+	configMap := &ckafka.ConfigMap{
 		"bootstrap.servers": os.Getenv("KafkaBootstrapServers"),
 		"group.id": os.Getenv("KafkaConsumerGroupId"),
 	}
